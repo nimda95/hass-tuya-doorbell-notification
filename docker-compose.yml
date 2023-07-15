@@ -1,0 +1,22 @@
+version: '3'
+services:
+  doorbell_notify:
+    container_name: doorbell_notify
+    hostname: doorbell_notify
+    build:
+      context: ./data/doorbell_notify
+    restart: unless-stopped
+    environment:
+      - TUYA_CLIENT_ID=xxxxxxxxxxxxxxxx
+      - TUYA_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxx
+      - TUYA_REGION=EU | 
+      - DOORBELL_DEVICE_ID=xxxxxxxxxxxxxxxxxxxxxx
+      - HASS_WEBHOOK_URL=https://ha.aymane.xyz/api/webhook/doorbell-ring-xxxxxxxxxxxxxxxxxxxx
+      - DEBUG=true
+    networks:
+      nginx_net:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
